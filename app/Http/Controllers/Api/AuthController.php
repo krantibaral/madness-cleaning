@@ -26,7 +26,7 @@ class AuthController extends Controller
             // Create the user
             $user = User::create($input);
 
-          
+
 
             // Generate access token
             $user->access_token = $user->createToken($request->email)->accessToken;
@@ -43,6 +43,7 @@ class AuthController extends Controller
 
     public function login(UserLogin $request)
     {
+
         $login_credentials = [
             'email' => $request->email,
             'password' => $request->password,
@@ -80,19 +81,4 @@ class AuthController extends Controller
         return new AuthResource($user);
     }
 
-    public function changePassword(ChangePasswordRequest $request)
-    {
-        $user = Auth::user();
-
-        // Check if the current password matches
-        if (!Hash::check($request->current_password, $user->password)) {
-            return response()->json(['success' => false, 'message' => 'Current password is incorrect'], 400);
-        }
-
-        // Update the password
-        $user->password = bcrypt($request->new_password);
-        $user->save();
-
-        return response()->json(['success' => true, 'message' => 'Password changed successfully']);
-    }
 }
