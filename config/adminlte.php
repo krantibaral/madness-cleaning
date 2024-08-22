@@ -317,7 +317,7 @@ return [
         // ],
         [
             'text' => 'Services',
-            'url' => 'admin/pages',
+            'url' => 'admin/services',
             'icon' => 'far fa-fw fa-file',
 
         ],

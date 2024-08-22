@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('price');
             $table->text('description');
             $table->timestamps();
+            $table->softDeletes(); // Add this line to include the deleted_at column
         });
     }
 
