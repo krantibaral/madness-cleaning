@@ -21,7 +21,7 @@ class ServiceResource extends JsonResource
             'description' => $this->description,
             'created_at' => $this->created_at->toDateTimeString(),
             'updated_at' => $this->updated_at->toDateTimeString(),
-            'image_url' => $this->getImage('images'),
+            'image_url' => $this->getImage(),
         ];
     }
     public function with($request)
