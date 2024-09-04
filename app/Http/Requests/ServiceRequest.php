@@ -7,7 +7,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 
-
 class ServiceRequest extends FormRequest
 {
     /**
@@ -28,9 +27,15 @@ class ServiceRequest extends FormRequest
         return [
             'name' => 'required|string|max:191',
             'price' => 'required|integer',
-            'description' => 'required',
+            'description' => 'required|string',
+            'location' => 'required|string|max:255',
+            'working_information' => 'required|string|max:500',
         ];
     }
+
+    /**
+     * Handle a failed validation attempt.
+     */
     protected function failedValidation(Validator $validator)
     {
         $response = new JsonResponse([

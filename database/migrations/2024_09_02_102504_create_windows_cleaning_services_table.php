@@ -17,6 +17,8 @@ return new class extends Migration {
             $table->string('phone');
             $table->integer('number_of_windows');
             $table->integer('number_of_story');
+            $table->date('service_date');
+            $table->time('service_time');
             $table->text('message')->nullable();
             $table->timestamps();
             $table->softDeletes();

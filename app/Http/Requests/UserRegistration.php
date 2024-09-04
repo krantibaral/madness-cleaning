@@ -25,18 +25,26 @@ class UserRegistration extends FormRequest
         return [
             'email' => 'required|email|unique:users',
             'name' => 'required|string|max:50',
-            'confirm_password' => 'required|min:8|max:16|same:password',
+            'phone' => 'required|string|max:15',
+            'address' => 'required|string|max:255',
             'password' => 'required|min:8|max:16',
-         
+            'confirm_password' => 'required|min:8|max:16|same:password',
         ];
     }
 
     public function messages()
     {
         return [
+            'phone.required' => 'The phone number is required.',
+            'phone.max' => 'The phone number must not exceed 15 characters.',
+            'address.required' => 'The address is required.',
+            'address.max' => 'The address must not exceed 255 characters.',
         ];
     }
 
+    /**
+     * Handle a failed validation attempt.
+     */
     protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
     {
         $response = new JsonResponse([

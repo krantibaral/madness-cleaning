@@ -24,6 +24,8 @@ class WindowsCleaningServiceController extends Controller
             'number_of_windows' => 'required|integer',
             'number_of_story' => 'required|integer',
             'message' => 'nullable|string',
+            'service_date' => 'required|date', // Added validation for service date
+            'service_time' => 'required|date_format:H:i', // Added validation for service time
         ]);
 
         $service = WindowsCleaningService::create($validated);
@@ -47,6 +49,8 @@ class WindowsCleaningServiceController extends Controller
             'number_of_windows' => 'required|integer',
             'number_of_story' => 'required|integer',
             'message' => 'nullable|string',
+            'service_date' => 'required|date', 
+            'service_time' => 'required|date_format:H:i', //must be in HH:MM format
         ]);
 
         $service->update($validated);

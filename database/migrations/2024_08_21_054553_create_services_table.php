@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('price');
+            $table->string('location');
             $table->text('description');
+            $table->text('working_information');
             $table->timestamps();
-            $table->softDeletes(); // Add this line to include the deleted_at column
+            $table->softDeletes(); 
         });
     }
 

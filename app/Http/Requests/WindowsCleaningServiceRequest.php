@@ -20,6 +20,8 @@ class WindowsCleaningServiceRequest extends FormRequest
             'number_of_windows' => 'required|integer',
             'number_of_story' => 'required|integer',
             'message' => 'nullable|string',
+            'service_date' => 'required|date',
+            'service_time' => 'required|date_format:H:i',
         ];
     }
 }
