@@ -18,6 +18,7 @@ class AuthController extends Controller
 {
     public function register(UserRegistration $request)
     {
+
         try {
             // Correctly hash the password before storing it
             $input = $request->all();
