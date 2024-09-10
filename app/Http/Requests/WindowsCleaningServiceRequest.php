@@ -22,6 +22,8 @@ class WindowsCleaningServiceRequest extends FormRequest
             'message' => 'nullable|string',
             'service_date' => 'required|date',
             'service_time' => 'required|date_format:H:i',
+            'type' => 'required|in:Inside,Outside',
+            'windows_track_frame' => 'required|in:Track,Frame',
         ];
     }
 }

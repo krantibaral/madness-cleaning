@@ -6,61 +6,124 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\WindowsCleaningService;
 use App\Http\Resources\WindowsCleaningServiceResource;
+use Illuminate\Support\Facades\Validator;
 
 class WindowsCleaningServiceController extends Controller
 {
     public function index()
     {
         $services = WindowsCleaningService::all();
-        return WindowsCleaningServiceResource::collection($services);
+        return response()->json([
+            'status' => 'success',
+            'data' => WindowsCleaningServiceResource::collection($services),
+            'message' => 'Services retrieved successfully.'
+        ], 200);
     }
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:15',
             'number_of_windows' => 'required|integer',
             'number_of_story' => 'required|integer',
             'message' => 'nullable|string',
-            'service_date' => 'required|date', // Added validation for service date
-            'service_time' => 'required|date_format:H:i', // Added validation for service time
+            'service_date' => 'required|date',
+            'service_time' => 'required|date_format:H:i',
+            'type' => 'required|in:Inside,Outside',
+            'windows_track_frame' => 'required|in:Track,Frame',
         ]);
 
-        $service = WindowsCleaningService::create($validated);
-        return new WindowsCleaningServiceResource($service);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validator->errors(),
+                'message' => 'Validation failed.'
+            ], 422);
+        }
+
+        $service = WindowsCleaningService::create($validator->validated());
+        return response()->json([
+            'status' => 'success',
+            'data' => new WindowsCleaningServiceResource($service),
+            'message' => 'Service created successfully.'
+        ], 201);
     }
 
     public function show($id)
     {
-        $service = WindowsCleaningService::findOrFail($id);
-        return new WindowsCleaningServiceResource($service);
+        $service = WindowsCleaningService::find($id);
+
+        if (!$service) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Service not found.'
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'data' => new WindowsCleaningServiceResource($service),
+            'message' => 'Service retrieved successfully.'
+        ], 200);
     }
 
     public function update(Request $request, $id)
     {
-        $service = WindowsCleaningService::findOrFail($id);
+        $service = WindowsCleaningService::find($id);
 
-        $validated = $request->validate([
+        if (!$service) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Service not found.'
+            ], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:15',
             'number_of_windows' => 'required|integer',
             'number_of_story' => 'required|integer',
             'message' => 'nullable|string',
-            'service_date' => 'required|date', 
-            'service_time' => 'required|date_format:H:i', //must be in HH:MM format
+            'service_date' => 'required|date',
+            'service_time' => 'required|date_format:H:i',
+            'type' => 'required|in:inside,outside',
+            'windows_track_frame' => 'required|in:Track,Frame',
         ]);
 
-        $service->update($validated);
-        return new WindowsCleaningServiceResource($service);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validator->errors(),
+                'message' => 'Validation failed.'
+            ], 422);
+        }
+
+        $service->update($validator->validated());
+        return response()->json([
+            'status' => 'success',
+            'data' => new WindowsCleaningServiceResource($service),
+            'message' => 'Service updated successfully.'
+        ], 200);
     }
 
     public function destroy($id)
     {
-        $service = WindowsCleaningService::findOrFail($id);
+        $service = WindowsCleaningService::find($id);
+
+        if (!$service) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Service not found.'
+            ], 404);
+        }
+
         $service->delete();
-        return response()->json(['message' => 'Service deleted successfully']);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Service deleted successfully.'
+        ], 200);
     }
 }

@@ -12,8 +12,8 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
-Route::get('services', [ServiceController::class, 'index']);
-Route::apiResource('windows-cleaning-services', WindowsCleaningServiceController::class);
+// Route::get('services', [ServiceController::class, 'index']);
+// Route::apiResource('windows-cleaning-services', WindowsCleaningServiceController::class);
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('services', [ServiceController::class, 'index']);

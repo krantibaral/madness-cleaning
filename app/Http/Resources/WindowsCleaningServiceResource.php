@@ -17,7 +17,9 @@ class WindowsCleaningServiceResource extends JsonResource
             'number_of_story' => $this->number_of_story,
             'message' => $this->message,
             'service_date' => $this->service_date,
-            'service_time' => $this->service_time,
+            'service_time' => $this->service_time, //example, 14:30 would represent 2:30 PM, and 09:00 would represent 9:00 AM.
+            'type' => $this->type,
+            'windows_track_frame' => $this->windows_track_frame,
             'created_at' => $this->created_at->toDateTimeString(),
             'updated_at' => $this->updated_at->toDateTimeString(),
         ];

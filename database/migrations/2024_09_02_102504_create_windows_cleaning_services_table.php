@@ -20,11 +20,13 @@ return new class extends Migration {
             $table->date('service_date');
             $table->time('service_time');
             $table->text('message')->nullable();
+            $table->enum('type', ['Inside', 'Outside']);
+            $table->enum('windows_track_frame', ['Track', 'Frame']);
+
             $table->timestamps();
             $table->softDeletes();
         });
     }
-
 
     /**
      * Reverse the migrations.
