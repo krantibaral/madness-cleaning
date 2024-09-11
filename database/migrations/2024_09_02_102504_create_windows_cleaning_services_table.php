@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('name');
             $table->string('email');
             $table->string('phone');
+            $table->string('location');
             $table->integer('number_of_windows');
             $table->integer('number_of_story');
             $table->date('service_date');

@@ -13,6 +13,7 @@ class WindowsCleaningServiceResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
+            'location' => $this->location,
             'number_of_windows' => $this->number_of_windows,
             'number_of_story' => $this->number_of_story,
             'message' => $this->message,

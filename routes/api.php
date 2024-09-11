@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\HouseCleaningServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
@@ -18,4 +19,5 @@ Route::post('register', [AuthController::class, 'register']);
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('services', [ServiceController::class, 'index']);
     Route::apiResource('windows-cleaning-services', WindowsCleaningServiceController::class);
+    Route::apiResource('house-cleaning-services', HouseCleaningServiceController::class);
 });
