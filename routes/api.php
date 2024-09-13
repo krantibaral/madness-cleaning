@@ -21,5 +21,5 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('services', [ServiceController::class, 'index']);
     Route::apiResource('windows-cleaning-services', WindowsCleaningServiceController::class);
     Route::apiResource('house-cleaning-services', HouseCleaningServiceController::class);
-    Route::apiResource('lease-cleaning-services', LeaseCleaningController::class);
+    Route::apiResource('lease-cleanings', LeaseCleaningController::class);
 });

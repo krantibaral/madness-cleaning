@@ -1,84 +1,57 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\API;
 
-use App\Models\LeaseCleaning;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\LeaseCleaningRequest;
 use App\Http\Resources\LeaseCleaningResource;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\LeaseCleaning;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class LeaseCleaningController extends Controller
 {
     /**
-     * Display a listing of the house cleaning services.
+     * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        $services = LeaseCleaning::all();
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'House cleaning services retrieved successfully',
-            'data' => LeaseCleaningResource::collection($services)
-        ], 200);
+        $leaseCleanings = LeaseCleaning::all();
+        return response()->json(LeaseCleaningResource::collection($leaseCleanings), 200);
     }
 
     /**
-     * Store a newly created house cleaning service in storage.
+     * Store a newly created resource in storage.
      */
-    public function store(LeaseCleaningRequest $request)
+    public function store(LeaseCleaningRequest $request): JsonResponse
     {
-        $service = LeaseCleaning::create($request->validated());
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'House cleaning service created successfully',
-            'data' => new LeaseCleaningResource($service)
-        ], 201);
+        $leaseCleaning = LeaseCleaning::create($request->validated());
+        return response()->json(new LeaseCleaningResource($leaseCleaning), 201);
     }
 
     /**
-     * Display the specified house cleaning service.
+     * Display the specified resource.
      */
-    public function show($id)
+    public function show(LeaseCleaning $leaseCleaning): JsonResponse
     {
-        $service = LeaseCleaning::findOrFail($id);
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'House cleaning service retrieved successfully',
-            'data' => new LeaseCleaningResource($service)
-        ], 200);
+        return response()->json(new LeaseCleaningResource($leaseCleaning), 200);
     }
 
     /**
-     * Update the specified house cleaning service in storage.
+     * Update the specified resource in storage.
      */
-    public function update(LeaseCleaningRequest $request, $id)
+    public function update(LeaseCleaningRequest $request, LeaseCleaning $leaseCleaning): JsonResponse
     {
-        $service = LeaseCleaning::findOrFail($id);
-        $service->update($request->validated());
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'House cleaning service updated successfully',
-            'data' => new LeaseCleaningResource($service)
-        ], 200);
+        $leaseCleaning->update($request->validated());
+        return response()->json(new LeaseCleaningResource($leaseCleaning), 200);
     }
 
     /**
-     * Remove the specified house cleaning service from storage.
+     * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(LeaseCleaning $leaseCleaning): JsonResponse
     {
-        $service = LeaseCleaning::findOrFail($id);
-        $service->delete();
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'House cleaning service deleted successfully',
-            'data' => null
-        ], 204);
+        $leaseCleaning->delete();
+        return response()->json(null, 204);
     }
 }

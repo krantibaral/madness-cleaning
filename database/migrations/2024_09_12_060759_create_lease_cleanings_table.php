@@ -28,6 +28,7 @@ return new class extends Migration {
             $table->time('service_time');
             $table->text('message')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
