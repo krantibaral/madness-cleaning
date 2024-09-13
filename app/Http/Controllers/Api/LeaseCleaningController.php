@@ -8,6 +8,7 @@ use App\Http\Resources\LeaseCleaningResource;
 use App\Models\LeaseCleaning;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class LeaseCleaningController extends Controller
 {
@@ -17,7 +18,10 @@ class LeaseCleaningController extends Controller
     public function index(): JsonResponse
     {
         $leaseCleanings = LeaseCleaning::all();
-        return response()->json(LeaseCleaningResource::collection($leaseCleanings), 200);
+        return response()->json([
+            'status' => 'success',
+            'data' => LeaseCleaningResource::collection($leaseCleanings),
+        ], 200);
     }
 
     /**
@@ -25,33 +29,89 @@ class LeaseCleaningController extends Controller
      */
     public function store(LeaseCleaningRequest $request): JsonResponse
     {
-        $leaseCleaning = LeaseCleaning::create($request->validated());
-        return response()->json(new LeaseCleaningResource($leaseCleaning), 201);
+        try {
+            $leaseCleaning = LeaseCleaning::create($request->validated());
+            return response()->json([
+                'status' => 'success',
+                'data' => new LeaseCleaningResource($leaseCleaning),
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unable to create the resource. Please try again.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(LeaseCleaning $leaseCleaning): JsonResponse
+    public function show($id): JsonResponse
     {
-        return response()->json(new LeaseCleaningResource($leaseCleaning), 200);
+        try {
+            $leaseCleaning = LeaseCleaning::findOrFail($id);
+            return response()->json([
+                'status' => 'success',
+                'data' => new LeaseCleaningResource($leaseCleaning),
+            ], 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Resource not found.',
+            ], 404);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(LeaseCleaningRequest $request, LeaseCleaning $leaseCleaning): JsonResponse
+    public function update(LeaseCleaningRequest $request, $id): JsonResponse
     {
-        $leaseCleaning->update($request->validated());
-        return response()->json(new LeaseCleaningResource($leaseCleaning), 200);
+        try {
+            $leaseCleaning = LeaseCleaning::findOrFail($id);
+            $leaseCleaning->update($request->validated());
+            return response()->json([
+                'status' => 'success',
+                'data' => new LeaseCleaningResource($leaseCleaning),
+            ], 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Resource not found.',
+            ], 404);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unable to update the resource. Please try again.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(LeaseCleaning $leaseCleaning): JsonResponse
+    public function destroy($id): JsonResponse
     {
-        $leaseCleaning->delete();
-        return response()->json(null, 204);
+        try {
+            $leaseCleaning = LeaseCleaning::findOrFail($id);
+            $leaseCleaning->delete();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Resource successfully deleted.',
+            ], 204);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Resource not found.',
+            ], 404);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unable to delete the resource. Please try again.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 }
