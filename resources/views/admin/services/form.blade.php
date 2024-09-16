@@ -8,6 +8,14 @@
         </div>
     </div>
     <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12">
+                <label for=""> Location *</label>
+                <input type="text" required class="form-control" name="location" value="{{ old('location', $item->location) }}">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
         <label for="">Image</label>
         <input type="file" class="form-control" accept="image/*" name="image">
         @if ($item->getImage())
