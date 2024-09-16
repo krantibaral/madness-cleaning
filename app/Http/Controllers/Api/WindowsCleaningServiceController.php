@@ -34,6 +34,7 @@ class WindowsCleaningServiceController extends Controller
             'service_time' => 'required|date_format:H:i',
             'type' => 'required|in:Inside,Outside',
             'windows_track_frame' => 'required|in:Track,Frame',
+            'status' => 'nullable|in:Pending,Cancelled,Approved',
         ]);
 
         if ($validator->fails()) {
@@ -93,6 +94,7 @@ class WindowsCleaningServiceController extends Controller
             'service_time' => 'required|date_format:H:i',
             'type' => 'required|in:inside,outside',
             'windows_track_frame' => 'required|in:Track,Frame',
+            'status' => 'nullable|in:Pending,Cancelled,Approved',
         ]);
 
         if ($validator->fails()) {

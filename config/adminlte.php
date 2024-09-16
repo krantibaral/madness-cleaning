@@ -321,6 +321,12 @@ return [
             'icon' => 'far fa-fw fa-file',
 
         ],
+        [
+            'text' => 'Windows Cleaning',
+            'url' => 'admin/windows_cleaning_services',
+            'icon' => 'far fa-fw fa-file',
+
+        ],
         // ['header' => 'account_settings'],
         // [
         //     'text' => 'profile',

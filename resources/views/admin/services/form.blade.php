@@ -3,8 +3,7 @@
         <div class="row">
             <div class="col-md-12">
                 <label for=""> Name *</label>
-                <input type="text" required class="form-control" name="name" value="{{ old('name', $item->name) }}"
-                    placeholder="John Smith">
+                <input type="text" required class="form-control" name="name" value="{{ old('name', $item->name) }}">
             </div>
         </div>
     </div>
@@ -17,8 +16,7 @@
     </div>
     <div class="col-md-6 mt-4">
         <label for="">Price *</label>
-        <input type="number" required class="form-control" name="price" value="{{ old('price', $item->price) }}"
-            placeholder="1000">
+        <input type="number" required class="form-control" name="price" value="{{ old('price', $item->price) }}">
     </div>
     <div class="col-12 mt-4">
         <label for="">Description *</label>
