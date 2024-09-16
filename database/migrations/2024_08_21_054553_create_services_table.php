@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('price');
             $table->string('location');
             $table->text('description');
-            $table->text('working_information');
+            $table->text('working_information')->nullable();
             $table->timestamps();
             $table->softDeletes(); 
         });
