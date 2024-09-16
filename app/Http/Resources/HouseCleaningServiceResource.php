@@ -25,6 +25,7 @@ class HouseCleaningServiceResource extends JsonResource
             'number_of_story' => $this->number_of_story,
             'frequency' => $this->frequency,
             'message' => $this->message,
+            'status' => $this->status,
             'service_date' => $this->service_date,
             'service_time' => $this->service_time, //example, 14:30 would represent 2:30 PM, and 09:00 would represent 9:00 AM.       
         ];

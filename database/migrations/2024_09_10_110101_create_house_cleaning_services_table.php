@@ -23,6 +23,7 @@ return new class extends Migration {
             $table->date('service_date');
             $table->time('service_time');
             $table->text('message')->nullable();
+            $table->enum('status', ['Pending', 'Cancelled', 'Approved'])->default('Pending');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -33,6 +33,7 @@ class HouseCleaningServiceRequest extends FormRequest
             'service_date' => 'required|date',
             'service_time' => 'required|date_format:H:i',
             'message' => 'nullable|string',
+            'status' => 'in:Pending,Cancelled,Approved',
         ];
     }
 }

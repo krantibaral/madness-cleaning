@@ -318,15 +318,19 @@ return [
         [
             'text' => 'Services',
             'url' => 'admin/services',
-            'icon' => 'far fa-fw fa-file',
-
+            'icon' => 'fas fa-concierge-bell', 
         ],
         [
             'text' => 'Windows Cleaning',
             'url' => 'admin/windows_cleaning_services',
-            'icon' => 'far fa-fw fa-file',
-
+            'icon' => 'fas fa-window-maximize', 
         ],
+        [
+            'text' => 'House Cleaning',
+            'url' => 'admin/house_cleaning_services',
+            'icon' => 'fas fa-broom', 
+        ],
+
         // ['header' => 'account_settings'],
         // [
         //     'text' => 'profile',

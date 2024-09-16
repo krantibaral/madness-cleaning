@@ -17,4 +17,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::resource('services', ServiceController::class);
     Route::resource('uploader', UploadController::class);
     Route::resource('windows_cleaning_services', WindowsCleaningServiceController::class);
+    Route::resource('house_cleaning_services', WindowsCleaningServiceController::class);
 });
