@@ -29,7 +29,7 @@ class HouseCleaningServiceRequest extends FormRequest
             'number_of_bedroom' => 'required|integer|min:1',
             'number_of_bathroom' => 'required|integer|min:1',
             'number_of_story' => 'required|integer|min:1',
-            'frequency' => 'required|in:fortnightly,monthly',
+            'frequency' => 'required|in:Weekly,Fortnightly,Monthly',
             'service_date' => 'required|date',
             'service_time' => 'required|date_format:H:i',
             'message' => 'nullable|string',

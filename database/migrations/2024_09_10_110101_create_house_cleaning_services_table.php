@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->integer('number_of_bedroom');
             $table->integer('number_of_bathroom');
             $table->integer('number_of_story');
-            $table->enum('frequency', ['Fortnightly', 'Monthly']);
+            $table->enum('frequency', ['Weekly','Fortnightly', 'Monthly']);
             $table->date('service_date');
             $table->time('service_time');
             $table->text('message')->nullable();
