@@ -24,9 +24,7 @@ class CarpetCleaningServiceResource extends JsonResource
             'carpet_stain_cleaning_area' => $this->carpet_stain_cleaning_area,
             'carpet_stain_cleaning_unit' => $this->carpet_stain_cleaning_unit,
             'message' => $this->message,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'deleted_at' => $this->deleted_at,
+            'status' => $this->status,
         ];
     }
 }

@@ -23,6 +23,7 @@ return new class extends Migration {
             $table->string('carpet_stain_cleaning_area')->nullable();
             $table->enum('carpet_stain_cleaning_unit', ['sqft', 'sqm'])->nullable();
             $table->text('message')->nullable();
+            $table->enum('status', ['Pending', 'Cancelled', 'Approved'])->default('Pending');
             $table->timestamps();
             $table->softDeletes();
         });

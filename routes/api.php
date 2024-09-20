@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\CarpetCleaningServiceController;
 use App\Http\Controllers\Api\HouseCleaningServiceController;
 use App\Http\Controllers\Api\LeaseCleaningController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
@@ -22,4 +24,5 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource('windows-cleaning-services', WindowsCleaningServiceController::class);
     Route::apiResource('house-cleaning-services', HouseCleaningServiceController::class);
     Route::apiResource('lease-cleanings', LeaseCleaningController::class);
+    Route::apiResource('carpet-cleaning-services', CarpetCleaningServiceController::class);
 });

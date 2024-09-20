@@ -43,12 +43,15 @@
     <div class="col-md-6 mt-4">
         <label for="frequency"> Cleaning Frequency *</label>
         <select class="form-control" name="frequency">
+            <option value="Weekly" {{ old('frequency', $item->frequency ?? '') == 'Weekly' ? 'selected' : '' }}>Weekly
+            </option>
             <option value="Fortnightly"
                 {{ old('frequency', $item->frequency ?? '') == 'Fortnightly' ? 'selected' : '' }}>Fortnightly</option>
             <option value="Monthly" {{ old('frequency', $item->frequency ?? '') == 'Monthly' ? 'selected' : '' }}>
                 Monthly</option>
         </select>
     </div>
+
 
     <div class="col-md-6 mt-4">
         <label for="service_date"> Service Date *</label>
@@ -61,12 +64,6 @@
         <input type="time" required class="form-control" name="service_time"
             value="{{ old('service_time', $item->service_time ?? '') }}">
     </div>
-
-    <div class="col-md-12 mt-4">
-        <label for="message"> Message (Optional)</label>
-        <textarea class="form-control" name="message" rows="5">{{ old('message', $item->message ?? '') }}</textarea>
-    </div>
-
     <div class="col-md-6 mt-4">
         <label for="status"> Status *</label>
         <select class="form-control" name="status">
@@ -78,6 +75,12 @@
             </option>
         </select>
     </div>
+    <div class="col-md-12 mt-4">
+        <label for="message"> Message</label>
+        <textarea class="form-control" name="message" rows="5">{{ old('message', $item->message ?? '') }}</textarea>
+    </div>
+
+
 
 
 </div>

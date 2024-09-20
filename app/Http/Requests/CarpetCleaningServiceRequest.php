@@ -31,6 +31,7 @@ class CarpetCleaningServiceRequest extends FormRequest
             'carpet_stain_cleaning_area' => 'nullable|string|max:255',
             'carpet_stain_cleaning_unit' => 'nullable|in:sqft,sqm',
             'message' => 'nullable|string',
+            'status' => 'in:Pending,Cancelled,Approved',
         ];
     }
 }
