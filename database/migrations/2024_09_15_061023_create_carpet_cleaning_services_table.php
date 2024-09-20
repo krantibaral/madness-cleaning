@@ -18,10 +18,10 @@ return new class extends Migration {
             $table->string('location');
             $table->date('service_date');
             $table->time('service_time');
-            $table->string('carpet_steam_cleaning_area')->nullable();
-            $table->enum('carpet_steam_cleaning_unit', ['sqft', 'sqm'])->nullable();
-            $table->string('carpet_stain_cleaning_area')->nullable();
-            $table->enum('carpet_stain_cleaning_unit', ['sqft', 'sqm'])->nullable();
+            $table->float('carpet_steam_cleaning_area');
+            $table->enum('carpet_steam_cleaning_unit', ['sqft', 'sqm']);
+            $table->float('carpet_stain_cleaning_area');
+            $table->enum('carpet_stain_cleaning_unit', ['sqft', 'sqm']);
             $table->text('message')->nullable();
             $table->enum('status', ['Pending', 'Cancelled', 'Approved'])->default('Pending');
             $table->timestamps();

@@ -11,15 +11,15 @@ use Illuminate\Http\JsonResponse;
 class CarpetCleaningServiceController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resources.
      */
     public function index(): JsonResponse
     {
         $services = CarpetCleaningService::all();
         return response()->json([
             'status' => 'success',
-            'data' => CarpetCleaningServiceResource::collection($services)
-        ], 200);
+            'data' => CarpetCleaningServiceResource::collection($services),
+        ]);
     }
 
     /**
@@ -30,42 +30,47 @@ class CarpetCleaningServiceController extends Controller
         $service = CarpetCleaningService::create($request->validated());
         return response()->json([
             'status' => 'success',
-            'data' => new CarpetCleaningServiceResource($service)
+            'message' => 'Carpet cleaning service created successfully.',
+            'data' => new CarpetCleaningServiceResource($service),
         ], 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(CarpetCleaningService $carpetCleaningService): JsonResponse
+    public function show($id): JsonResponse
     {
+        $service = CarpetCleaningService::findOrFail($id);
         return response()->json([
             'status' => 'success',
-            'data' => new CarpetCleaningServiceResource($carpetCleaningService)
-        ], 200);
+            'data' => new CarpetCleaningServiceResource($service),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(CarpetCleaningServiceRequest $request, CarpetCleaningService $carpetCleaningService): JsonResponse
+    public function update(CarpetCleaningServiceRequest $request, $id): JsonResponse
     {
-        $carpetCleaningService->update($request->validated());
+        $service = CarpetCleaningService::findOrFail($id);
+        $service->update($request->validated());
         return response()->json([
             'status' => 'success',
-            'data' => new CarpetCleaningServiceResource($carpetCleaningService)
-        ], 200);
+            'message' => 'Carpet cleaning service updated successfully.',
+            'data' => new CarpetCleaningServiceResource($service),
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CarpetCleaningService $carpetCleaningService): JsonResponse
+    public function destroy($id): JsonResponse
     {
-        $carpetCleaningService->delete();
+        $service = CarpetCleaningService::findOrFail($id);
+        $service->delete();
         return response()->json([
             'status' => 'success',
-            'message' => 'Carpet cleaning service deleted successfully'
+            'message' => 'Carpet cleaning service deleted successfully.',
         ], 204);
     }
 }

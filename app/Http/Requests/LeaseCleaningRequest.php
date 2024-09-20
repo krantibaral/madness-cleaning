@@ -33,11 +33,12 @@ class LeaseCleaningRequest extends FormRequest
             'oven_cleaning' => 'nullable|boolean',
             'stove_cleaning' => 'nullable|boolean',
             'number_of_walls_cleaned' => 'nullable|integer|min:0',
-            'carpet_steam_cleaning_area' => 'nullable|numeric|min:0',
-            'carpet_steam_cleaning_unit' => 'nullable|in:sqft,sqm',
+            'carpet_steam_cleaning_area' => 'required|numeric|min:0', 
+            'carpet_steam_cleaning_unit' => 'required|in:sqft,sqm',
             'service_date' => 'required|date',
             'service_time' => 'required|date_format:H:i',
             'message' => 'nullable|string|max:500',
+            'status' => 'nullable|in:Pending,Cancelled,Approved',
         ];
     }
 }

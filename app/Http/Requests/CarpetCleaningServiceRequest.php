@@ -6,17 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CarpetCleaningServiceRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     */
     public function rules()
     {
         return [
@@ -26,12 +15,12 @@ class CarpetCleaningServiceRequest extends FormRequest
             'location' => 'required|string|max:255',
             'service_date' => 'required|date',
             'service_time' => 'required|date_format:H:i',
-            'carpet_steam_cleaning_area' => 'nullable|string|max:255',
-            'carpet_steam_cleaning_unit' => 'nullable|in:sqft,sqm',
-            'carpet_stain_cleaning_area' => 'nullable|string|max:255',
-            'carpet_stain_cleaning_unit' => 'nullable|in:sqft,sqm',
+            'carpet_steam_cleaning_area' => 'required|numeric|min:0', 
+            'carpet_steam_cleaning_unit' => 'required|in:sqft,sqm',
+            'carpet_stain_cleaning_area' => 'required|numeric|min:0', 
+            'carpet_stain_cleaning_unit' => 'required|in:sqft,sqm',
             'message' => 'nullable|string',
-            'status' => 'in:Pending,Cancelled,Approved',
+            'status' => 'nullable|in:Pending,Cancelled,Approved',
         ];
     }
 }

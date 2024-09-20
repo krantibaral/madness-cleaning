@@ -22,11 +22,12 @@ return new class extends Migration {
             $table->boolean('oven_cleaning')->default(false);
             $table->boolean('stove_cleaning')->default(false);
             $table->integer('number_of_walls_cleaned');
-            $table->string('carpet_steam_cleaning_area')->nullable();
-            $table->enum('carpet_steam_cleaning_unit', ['sqft', 'sqm'])->nullable();
+            $table->string('carpet_steam_cleaning_area');
+            $table->enum('carpet_steam_cleaning_unit', ['sqft', 'sqm']);
             $table->date('service_date');
             $table->time('service_time');
             $table->text('message')->nullable();
+            $table->enum('status', ['Pending', 'Cancelled', 'Approved'])->default('Pending');
             $table->timestamps();
             $table->softDeletes();
         });
