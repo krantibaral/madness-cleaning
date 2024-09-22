@@ -31,6 +31,7 @@ return new class extends Migration
             $table->integer('price');
             $table->enum('status', ['Pending', 'Cancelled', 'Approved'])->default('Pending');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
