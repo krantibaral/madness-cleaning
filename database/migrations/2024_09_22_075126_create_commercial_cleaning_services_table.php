@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('name');
             $table->string('phone');
             $table->string('location');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->date('service_date')->nullable();
             $table->time('service_time')->nullable();
             $table->enum('type_of_commercial_space', [
