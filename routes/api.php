@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\WindowsCleaningServiceController;
-use App\Http\Controllers\API\CommercialCleaningServiceController;
+use App\Http\Controllers\Api\CommercialCleaningServiceController;
+
 
 
 Route::get('/user', function (Request $request) {
@@ -26,8 +27,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource('house-cleaning-services', HouseCleaningServiceController::class);
     Route::apiResource('lease-cleanings', LeaseCleaningController::class);
     Route::apiResource('carpet-cleaning-services', CarpetCleaningServiceController::class);
-
-
     Route::apiResource('commercial-cleaning-services', CommercialCleaningServiceController::class);
+
+
 
 });

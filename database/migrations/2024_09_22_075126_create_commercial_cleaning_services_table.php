@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -14,20 +13,20 @@ return new class extends Migration
         Schema::create('commercial_cleaning_services', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('phone'); 
-            $table->string('location'); 
-            $table->string('email')->unique(); 
-            $table->date('service_date')->nullable(); 
-            $table->time('service_time')->nullable(); 
+            $table->string('phone');
+            $table->string('location');
+            $table->string('email')->unique();
+            $table->date('service_date')->nullable();
+            $table->time('service_time')->nullable();
             $table->enum('type_of_commercial_space', [
                 'Office',
                 'Retail Store',
                 'Warehouse',
                 'Restaurant',
                 'Other',
-            ])->default('Office'); 
-            $table->date('site_visit_date')->nullable(); 
-            $table->text('message_box')->nullable(); 
+            ])->default('Office');
+            $table->date('site_visit_date')->nullable();
+            $table->text('message_box')->nullable();
             $table->integer('price');
             $table->enum('status', ['Pending', 'Cancelled', 'Approved'])->default('Pending');
             $table->timestamps();

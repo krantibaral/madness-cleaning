@@ -3,72 +3,78 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CommercialCleaningServiceRequest;
+use App\Http\Requests\StoreCommercialCleaningServiceRequest;
 use App\Http\Resources\CommercialCleaningServiceResource;
 use App\Models\CommercialCleaningService;
-use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class CommercialCleaningServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        $cleaningServices = CommercialCleaningService::all();
-
-        // Return a collection of resources
-        return CommercialCleaningServiceResource::collection($cleaningServices);
+        $services = CommercialCleaningService::all();
+        
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Commercial cleaning services retrieved successfully.',
+            'data' => CommercialCleaningServiceResource::collection($services),
+        ], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CommercialCleaningServiceRequest $request)
+    public function store(StoreCommercialCleaningServiceRequest $request): JsonResponse
     {
-        // Create a new commercial cleaning service using the validated request data
-        $cleaningService = CommercialCleaningService::create($request->validated());
+        $service = CommercialCleaningService::create($request->validated());
 
-        // Return the created resource
-        return new CommercialCleaningServiceResource($cleaningService);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Commercial cleaning service created successfully.',
+            'data' => new CommercialCleaningServiceResource($service),
+        ], 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(CommercialCleaningService $commercialCleaningService): JsonResponse
     {
-        $cleaningService = CommercialCleaningService::findOrFail($id);
-
-        // Return the individual resource
-        return new CommercialCleaningServiceResource($cleaningService);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Commercial cleaning service retrieved successfully.',
+            'data' => new CommercialCleaningServiceResource($commercialCleaningService),
+        ], 200);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(CommercialCleaningServiceRequest $request, $id)
+    public function update(StoreCommercialCleaningServiceRequest $request, CommercialCleaningService $commercialCleaningService): JsonResponse
     {
-        $cleaningService = CommercialCleaningService::findOrFail($id);
+        $commercialCleaningService->update($request->validated());
 
-        // Update the resource with validated data
-        $cleaningService->update($request->validated());
-
-        // Return the updated resource
-        return new CommercialCleaningServiceResource($cleaningService);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Commercial cleaning service updated successfully.',
+            'data' => new CommercialCleaningServiceResource($commercialCleaningService),
+        ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(CommercialCleaningService $commercialCleaningService): JsonResponse
     {
-        $cleaningService = CommercialCleaningService::findOrFail($id);
+        $commercialCleaningService->delete();
 
-        // Delete the resource
-        $cleaningService->delete();
-
-        // Return a response with no content
-        return response(null, Response::HTTP_NO_CONTENT);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Commercial cleaning service deleted successfully.',
+        ], 204);
     }
 }
