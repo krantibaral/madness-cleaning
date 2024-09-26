@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LawnServiceRequest extends FormRequest
+class RubbishRemovalServiceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return true; // Ensure the request is authorized
     }
 
     /**
@@ -23,14 +23,16 @@ class LawnServiceRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
             'phone' => 'required|string|max:15',
             'location' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
             'service_date' => 'required|date',
             'service_time' => 'required|date_format:H:i',
-            'message_box' => 'nullable|string',
-            'type_of_lawn_service' => 'required|in:Mowing,Trimming,Weeding,Pruning,Other',
             'price' => 'required|integer',
+            'number_of_tyres' => 'required|integer|min:0',
+            'number_of_furniture' => 'required|integer|min:0',
+            'number_of_mattress' => 'required|integer|min:0',
+            'message_box' => 'nullable|string',
             'status' => 'in:Pending,Cancelled,Approved',
         ];
     }

@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Api\CarpetCleaningServiceController;
 use App\Http\Controllers\Api\HouseCleaningServiceController;
+use App\Http\Controllers\Api\LawnServiceController;
 use App\Http\Controllers\Api\LeaseCleaningController;
 
+use App\Http\Controllers\Api\RubbishRemovalServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
@@ -30,6 +32,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource('carpet-cleaning-services', CarpetCleaningServiceController::class);
     Route::apiResource('commercial-cleaning-services', CommercialCleaningServiceController::class);
     Route::apiResource('builder-cleaning-services',  BuilderCleaningServiceController::class);
+    Route::apiResource('lawn-services',  LawnServiceController::class);
+    Route::apiResource('rubbish-removal-services',  RubbishRemovalServiceController::class);
 
 
 
