@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->integer('price');
             $table->enum('type_of_lawn_service', [
                 'Mowing',
-                'Trimmimg',
+                'Trimming',
                 'Weeding',
                 'Pruning',
                 'Other',
