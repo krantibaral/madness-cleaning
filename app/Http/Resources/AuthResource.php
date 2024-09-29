@@ -20,7 +20,8 @@ class AuthResource extends JsonResource
             'email' => $this->email,
             'phone' => $this->phone,
             'address' => $this->address,
-            'token' => $this->access_token
+            'token' => $this->access_token,
+            'avatar' => $this->getFirstMediaUrl('avatars'),
         ];
     }
 

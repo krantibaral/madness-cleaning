@@ -26,6 +26,7 @@ class WindowsCleaningServiceSeeder extends Seeder
             'type' => 'Both',
             'windows_track_frame' => 'Track',
             'status' => 'Pending',
+            'price' => 20,
         ]);
 
         WindowsCleaningService::create([
@@ -41,6 +42,7 @@ class WindowsCleaningServiceSeeder extends Seeder
             'type' => 'Outside',
             'windows_track_frame' => 'Frame',
             'status' => 'Approved',
+            'price' => 20,
         ]);
 
         WindowsCleaningService::create([
@@ -56,6 +58,7 @@ class WindowsCleaningServiceSeeder extends Seeder
             'type' => 'Inside',
             'windows_track_frame' => 'Both',
             'status' => 'Pending',
+            'price' => 20,
         ]);
     }
 }

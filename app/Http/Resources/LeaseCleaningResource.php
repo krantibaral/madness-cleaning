@@ -26,6 +26,7 @@ class LeaseCleaningResource extends JsonResource
             'service_date' => $this->service_date,
             'service_time' => $this->service_time,
             'status' => $this->status,
+            'price' => $this->price,
             'window_cleaning' => $this->window_cleaning, // inside, outside, or both
             'oven_cleaning' => $this->oven_cleaning, // boolean value
             'stove_cleaning' => $this->stove_cleaning, // boolean value

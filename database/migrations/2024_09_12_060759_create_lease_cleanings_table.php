@@ -26,6 +26,7 @@ return new class extends Migration {
             $table->enum('carpet_steam_cleaning_unit', ['sqft', 'sqm']);
             $table->date('service_date');
             $table->time('service_time');
+            $table->integer('price');
             $table->text('message')->nullable();
             $table->enum('status', ['Pending', 'Cancelled', 'Approved'])->default('Pending');
             $table->timestamps();

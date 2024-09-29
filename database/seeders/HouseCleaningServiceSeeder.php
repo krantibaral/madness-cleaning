@@ -22,6 +22,7 @@ class HouseCleaningServiceSeeder extends Seeder
             'number_of_bathroom' => 2,
             'number_of_story' => 1,
             'frequency' => 'Weekly',
+            'price' => 20,
             'service_date' => '2024-10-01',
             'service_time' => '10:00',
             'message' => 'Please focus on the kitchen and living room.',
@@ -39,6 +40,7 @@ class HouseCleaningServiceSeeder extends Seeder
             'frequency' => 'Fortnightly',
             'service_date' => '2024-10-03',
             'service_time' => '14:00',
+            'price' => 20,
             'message' => null, // Nullable
             'status' => 'Approved',
         ]);
@@ -54,6 +56,7 @@ class HouseCleaningServiceSeeder extends Seeder
             'frequency' => 'Monthly',
             'service_date' => '2024-10-05',
             'service_time' => '09:00',
+            'price' => 20,
             'message' => 'Special attention needed for the attic.',
             'status' => 'Pending',
         ]);

@@ -30,6 +30,7 @@ class LeaseCleaningSeeder extends Seeder
             'service_time' => '11:00',
             'message' => 'Focus on kitchen and living room.',
             'status' => 'Pending',
+            'price' => 20,
         ]);
 
         LeaseCleaning::create([
@@ -49,6 +50,7 @@ class LeaseCleaningSeeder extends Seeder
             'service_time' => '15:00',
             'message' => 'Please ensure thorough cleaning.',
             'status' => 'Approved',
+            'price' => 20,
         ]);
 
         LeaseCleaning::create([
@@ -68,6 +70,7 @@ class LeaseCleaningSeeder extends Seeder
             'service_time' => '09:00',
             'message' => null, // Nullable
             'status' => 'Pending',
+            'price' => 20,
         ]);
     }
 }

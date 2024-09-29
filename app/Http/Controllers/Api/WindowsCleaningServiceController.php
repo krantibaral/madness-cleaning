@@ -29,6 +29,7 @@ class WindowsCleaningServiceController extends Controller
             'location' => 'required|string|max:255',
             'number_of_windows' => 'required|integer',
             'number_of_story' => 'required|integer',
+            'price' => 'required|integer',
             'message' => 'nullable|string',
             'service_date' => 'required|date',
             'service_time' => 'required|date_format:H:i',

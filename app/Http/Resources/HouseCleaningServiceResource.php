@@ -20,6 +20,7 @@ class HouseCleaningServiceResource extends JsonResource
             'email' => $this->email,
             'phone' => $this->phone,
             'location' => $this->location,
+            'price' => $this->price,
             'number_of_bedroom' => $this->number_of_bedroom,
             'number_of_bathroom' => $this->number_of_bathroom,
             'number_of_story' => $this->number_of_story,

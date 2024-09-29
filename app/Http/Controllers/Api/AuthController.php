@@ -18,27 +18,31 @@ class AuthController extends Controller
 {
     public function register(UserRegistration $request)
     {
-
         try {
-            // Correctly hash the password before storing it
+            // Hash the password before storing it
             $input = $request->all();
             $input['password'] = bcrypt($input['password']);
 
             // Create the user
             $user = User::create($input);
 
-
+            // Handle avatar file upload if exists
+            if ($request->hasFile('avatar')) {
+                $user->addMedia($request->file('avatar'))->toMediaCollection('avatars');
+            }
 
             // Generate access token
             $user->access_token = $user->createToken($request->email)->accessToken;
             $user->responseMessage = "User successfully registered.";
 
             return new AuthResource($user);
+
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'User registration failed.',
-            ]);
+                'error' => $e->getMessage(),
+            ], 500);
         }
     }
 

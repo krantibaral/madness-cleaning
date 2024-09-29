@@ -25,6 +25,7 @@ class WindowsCleaningServiceRequest extends FormRequest
             'service_time' => 'required|date_format:H:i',
             'type' => 'required|in:Inside,Outside',
             'status' => 'in:Pending,Cancelled,Approved',
+            'price' => 'required|integer',
             'windows_track_frame' => 'required|in:Track,Frame',
         ];
     }

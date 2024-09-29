@@ -37,6 +37,7 @@ class LeaseCleaningRequest extends FormRequest
             'carpet_steam_cleaning_unit' => 'required|in:sqft,sqm',
             'service_date' => 'required|date',
             'service_time' => 'required|date_format:H:i',
+            'price' => 'required|integer',
             'message' => 'nullable|string|max:500',
             'status' => 'nullable|in:Pending,Cancelled,Approved',
         ];

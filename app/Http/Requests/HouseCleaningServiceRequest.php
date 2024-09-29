@@ -32,6 +32,7 @@ class HouseCleaningServiceRequest extends FormRequest
             'frequency' => 'required|in:Weekly,Fortnightly,Monthly',
             'service_date' => 'required|date',
             'service_time' => 'required|date_format:H:i',
+            'price' => 'required|integer',
             'message' => 'nullable|string',
             'status' => 'in:Pending,Cancelled,Approved',
         ];

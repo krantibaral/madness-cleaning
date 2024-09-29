@@ -21,6 +21,7 @@ class WindowsCleaningServiceResource extends JsonResource
             'service_time' => $this->service_time, //example, 14:30 would represent 2:30 PM, and 09:00 would represent 9:00 AM.
             'type' => $this->type,
             'status' => $this->status,
+            'price' => $this->price,
             'windows_track_frame' => $this->windows_track_frame,
             'created_at' => $this->created_at->toDateTimeString(),
             'updated_at' => $this->updated_at->toDateTimeString(),

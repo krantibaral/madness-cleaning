@@ -29,6 +29,7 @@ class UserRegistration extends FormRequest
             'address' => 'required|string|max:255',
             'password' => 'required|min:8|max:16',
             'confirm_password' => 'required|min:8|max:16|same:password',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 

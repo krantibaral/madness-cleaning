@@ -19,6 +19,7 @@ class CarpetCleaningServiceRequest extends FormRequest
             'carpet_steam_cleaning_unit' => 'required|in:sqft,sqm',
             'carpet_stain_cleaning_area' => 'required|numeric|min:0', 
             'carpet_stain_cleaning_unit' => 'required|in:sqft,sqm',
+            'price' => 'required|integer',
             'message' => 'nullable|string',
             'status' => 'nullable|in:Pending,Cancelled,Approved',
         ];

@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->integer('number_of_story');
             $table->date('service_date');
             $table->time('service_time');
+            $table->integer('price');
             $table->text('message')->nullable();
             $table->enum('type', ['Inside', 'Outside', 'Both']);
             $table->enum('windows_track_frame', ['Track', 'Frame', 'Both']);
