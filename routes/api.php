@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AppointmentBookingController;
 use App\Http\Controllers\Api\CarpetCleaningServiceController;
 use App\Http\Controllers\Api\HouseCleaningServiceController;
 use App\Http\Controllers\Api\LawnServiceController;
@@ -34,6 +35,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource('builder-cleaning-services',  BuilderCleaningServiceController::class);
     Route::apiResource('lawn-services',  LawnServiceController::class);
     Route::apiResource('rubbish-removal-services',  RubbishRemovalServiceController::class);
+    Route::apiResource('appointment-bookings',  AppointmentBookingController::class);
+
 
 
 
