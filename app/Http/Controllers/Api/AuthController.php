@@ -86,4 +86,21 @@ class AuthController extends Controller
         return new AuthResource($user);
     }
 
+    public function getAuthUser()
+    {
+
+        $user = auth()->user();
+
+
+        if ($user) {
+            return new AuthResource($user);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'User not authenticated.'
+        ], 401);
+    }
+
+
 }

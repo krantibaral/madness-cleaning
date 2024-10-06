@@ -1,43 +1,39 @@
 <?php
 
-use App\Http\Controllers\Api\AppointmentBookingController;
-use App\Http\Controllers\Api\CarpetCleaningServiceController;
-use App\Http\Controllers\Api\HouseCleaningServiceController;
-use App\Http\Controllers\Api\LawnServiceController;
-use App\Http\Controllers\Api\LeaseCleaningController;
-
-use App\Http\Controllers\Api\RubbishRemovalServiceController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\{
+    AppointmentBookingController,
+    CarpetCleaningServiceController,
+    HouseCleaningServiceController,
+    LawnServiceController,
+    LeaseCleaningController,
+    RubbishRemovalServiceController,
+    AuthController,
+    ServiceController,
+    WindowsCleaningServiceController,
+    CommercialCleaningServiceController,
+    BuilderCleaningServiceController
+};
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\ServiceController;
-use App\Http\Controllers\Api\WindowsCleaningServiceController;
-use App\Http\Controllers\Api\CommercialCleaningServiceController;
-use App\Http\Controllers\Api\BuilderCleaningServiceController;
 
-
-
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+// Public routes
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
-// Route::get('services', [ServiceController::class, 'index']);
-// Route::apiResource('windows-cleaning-services', WindowsCleaningServiceController::class);
 
+// Authenticated routes
 Route::group(['middleware' => 'auth:api'], function () {
+    // User-related routes
+    Route::get('/user', [AuthController::class, 'getAuthUser']);
+    Route::put('/user', [AuthController::class, 'updateUser']);
+
+    // Service-related routes
     Route::get('services', [ServiceController::class, 'index']);
     Route::apiResource('windows-cleaning-services', WindowsCleaningServiceController::class);
     Route::apiResource('house-cleaning-services', HouseCleaningServiceController::class);
     Route::apiResource('lease-cleanings', LeaseCleaningController::class);
     Route::apiResource('carpet-cleaning-services', CarpetCleaningServiceController::class);
     Route::apiResource('commercial-cleaning-services', CommercialCleaningServiceController::class);
-    Route::apiResource('builder-cleaning-services',  BuilderCleaningServiceController::class);
-    Route::apiResource('lawn-services',  LawnServiceController::class);
-    Route::apiResource('rubbish-removal-services',  RubbishRemovalServiceController::class);
-    Route::apiResource('appointment-bookings',  AppointmentBookingController::class);
-
-
-
-
+    Route::apiResource('builder-cleaning-services', BuilderCleaningServiceController::class);
+    Route::apiResource('lawn-services', LawnServiceController::class);
+    Route::apiResource('rubbish-removal-services', RubbishRemovalServiceController::class);
+    Route::apiResource('appointment-bookings', AppointmentBookingController::class);
 });
