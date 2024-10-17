@@ -74,17 +74,38 @@ class AuthController extends Controller
         }
         return response(['success' => true, "message" => "Logout successfull", "data" => []], 200);
     }
-
     public function updateUser(Request $request)
     {
         // Retrieve the currently authenticated user
         $user = auth()->user();
-        $input = $request->all();
-        $user->update($input);
+
+        // Validate the incoming request data if necessary
+        $input = $request->validate([
+            'name' => 'sometimes|string|max:255',
+            'email' => 'sometimes|email|max:255',
+
+        ]);
+
+        // Update the user details if any input is provided
+        if (!empty($input)) {
+            $user->update($input);
+        }
+
+        // Handle avatar file upload if exists
+        if ($request->hasFile('avatar')) {
+            // Clear previous avatar
+            $user->clearMediaCollection('avatars');
+
+            // Add the new avatar
+            $user->addMedia($request->file('avatar'))->toMediaCollection('avatars');
+        }
+
+        // Response message after successful update
         $user->responseMessage = "User details updated successfully.";
 
         return new AuthResource($user);
     }
+
 
     public function getAuthUser()
     {
