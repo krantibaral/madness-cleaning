@@ -23,7 +23,7 @@ Route::post('register', [AuthController::class, 'register']);
 Route::group(['middleware' => 'auth:api'], function () {
     // User-related routes
     Route::get('/user', [AuthController::class, 'getAuthUser']);
-    Route::patch('/user', [AuthController::class, 'updateUser']);
+    Route::post('/user', [AuthController::class, 'updateUser']);
 
     // Service-related routes
     Route::get('services', [ServiceController::class, 'index']);
