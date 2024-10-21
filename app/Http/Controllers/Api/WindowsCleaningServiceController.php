@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\WindowsCleaningService;
+use App\Models\BookedService;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\WindowsCleaningServiceResource;
 use Illuminate\Support\Facades\Validator;
 
@@ -22,6 +24,7 @@ class WindowsCleaningServiceController extends Controller
 
     public function store(Request $request)
     {
+        // Step 1: Validate the request
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
@@ -46,11 +49,21 @@ class WindowsCleaningServiceController extends Controller
             ], 422);
         }
 
+        // Step 2: Store the windows cleaning service details in WindowsCleaningService table
         $service = WindowsCleaningService::create($validator->validated());
+
+        // Step 3: Store the service booking in BookedService table
+        BookedService::create([
+            'user_id' => Auth::id(), // Assuming the user is logged in
+            'service_id' => $service->id, // ID of the windows cleaning service
+            'service_name' => 'Windows Cleaning',
+        ]);
+
+        // Step 4: Return the response
         return response()->json([
             'status' => 'success',
             'data' => new WindowsCleaningServiceResource($service),
-            'message' => 'Service created successfully.'
+            'message' => 'Service created and booked successfully.'
         ], 201);
     }
 

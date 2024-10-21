@@ -39,6 +39,7 @@ return new class extends Migration {
             $table->boolean('cctv_installer')->default(false); 
             $table->text('message_box')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
