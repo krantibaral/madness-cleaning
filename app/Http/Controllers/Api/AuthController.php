@@ -83,6 +83,8 @@ class AuthController extends Controller
         $input = $request->validate([
             'name' => 'sometimes|string|max:255',
             'email' => 'sometimes|email|max:255',
+            'phone' => 'sometimes',
+            'address' => 'sometimes|string'
 
         ]);
 
