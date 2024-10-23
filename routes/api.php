@@ -25,9 +25,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     // User-related routes
     Route::get('/user', [AuthController::class, 'getAuthUser']);
     Route::post('/user', [AuthController::class, 'updateUser']);
-    Route::get('booked-services/{service_id}', [BookedServiceController::class, 'getBookedServiceDetails']);
-    // Route to get all booked services for the authenticated user
-    Route::get('booked-services', [BookedServiceController::class, 'getAllBookedServices']);
     // Service-related routes 
     Route::get('services', [ServiceController::class, 'index']);
     Route::apiResource('windows-cleaning-services', WindowsCleaningServiceController::class);
