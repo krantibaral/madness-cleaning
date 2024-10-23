@@ -7,6 +7,7 @@ use App\Http\Requests\CarpetCleaningServiceRequest;
 use App\Http\Resources\CarpetCleaningServiceResource;
 use App\Models\CarpetCleaningService;
 use Illuminate\Http\JsonResponse;
+use App\Models\Booking;
 
 class CarpetCleaningServiceController extends Controller
 {
@@ -28,6 +29,10 @@ class CarpetCleaningServiceController extends Controller
     public function store(CarpetCleaningServiceRequest $request): JsonResponse
     {
         $service = CarpetCleaningService::create($request->validated());
+        Booking::create([
+            'carpet_cleaning_service_id' => $service->id,
+
+        ]);
         return response()->json([
             'status' => 'success',
             'message' => 'Carpet cleaning service created successfully.',

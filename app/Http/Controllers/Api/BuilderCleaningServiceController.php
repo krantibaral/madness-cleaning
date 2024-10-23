@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBuilderCleaningServiceRequest;
 use App\Http\Resources\BuilderCleaningServiceResource;
 use App\Models\BuilderCleaningService;
+use App\Models\Booking;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,7 @@ class BuilderCleaningServiceController extends Controller
     public function index(): JsonResponse
     {
         $services = BuilderCleaningService::all();
-        
+
         return response()->json([
             'status' => 'success',
             'message' => 'Builder cleaning services retrieved successfully.',
@@ -30,7 +31,14 @@ class BuilderCleaningServiceController extends Controller
      */
     public function store(StoreBuilderCleaningServiceRequest $request): JsonResponse
     {
+
         $service = BuilderCleaningService::create($request->validated());
+
+
+        Booking::create([
+            'builder_cleaning_service_id' => $service->id,
+
+        ]);
 
         return response()->json([
             'status' => 'success',
@@ -38,6 +46,7 @@ class BuilderCleaningServiceController extends Controller
             'data' => new BuilderCleaningServiceResource($service),
         ], 201);
     }
+
 
     /**
      * Display the specified resource.

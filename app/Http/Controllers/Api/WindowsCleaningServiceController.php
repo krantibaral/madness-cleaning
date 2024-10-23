@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\WindowsCleaningService;
+use App\Models\Booking;
 use App\Models\BookedService;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\WindowsCleaningServiceResource;
@@ -49,23 +50,37 @@ class WindowsCleaningServiceController extends Controller
             ], 422);
         }
 
-        // Step 2: Store the windows cleaning service details in WindowsCleaningService table
-        $service = WindowsCleaningService::create($validator->validated());
+        // Step 2: Check if the service already exists for the given email and date
+        $service = WindowsCleaningService::where('email', $request->email)
+            ->where('service_date', $request->service_date)
+            ->first();
 
-        // Step 3: Store the service booking in BookedService table
-        BookedService::create([
-            'user_id' => Auth::id(), // Assuming the user is logged in
-            'service_id' => $service->id, // ID of the windows cleaning service
-            'service_name' => 'Windows Cleaning',
+        if ($service) {
+            // Step 3: If service exists, update the record
+            $service->update($validator->validated());
+        } else {
+            // Step 4: If not, create a new service record
+            $service = WindowsCleaningService::create($validator->validated());
+        }
+
+        // Step 5: Store the booking related to this service
+        $booking = Booking::create([
+            'window_cleaning_service_id' => $service->id,
+
+            'status' => $request->status ?? 'Pending',
         ]);
 
-        // Step 4: Return the response
+        // Step 6: Return the response
         return response()->json([
             'status' => 'success',
-            'data' => new WindowsCleaningServiceResource($service),
+            'data' => [
+                'service' => new WindowsCleaningServiceResource($service),
+                // 'booking' => $booking
+            ],
             'message' => 'Service created and booked successfully.'
         ], 201);
     }
+
 
     public function show($id)
     {

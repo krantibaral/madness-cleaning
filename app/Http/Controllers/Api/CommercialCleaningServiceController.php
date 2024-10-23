@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCommercialCleaningServiceRequest;
 use App\Http\Resources\CommercialCleaningServiceResource;
 use App\Models\CommercialCleaningService;
 use Illuminate\Http\JsonResponse;
+use App\Models\Booking;
 use Illuminate\Http\Request;
 
 class CommercialCleaningServiceController extends Controller
@@ -17,7 +18,7 @@ class CommercialCleaningServiceController extends Controller
     public function index(): JsonResponse
     {
         $services = CommercialCleaningService::all();
-        
+
         return response()->json([
             'status' => 'success',
             'message' => 'Commercial cleaning services retrieved successfully.',
@@ -32,6 +33,10 @@ class CommercialCleaningServiceController extends Controller
     {
         $service = CommercialCleaningService::create($request->validated());
 
+        Booking::create([
+            'commercial_cleaning_service_id' => $service->id,
+
+        ]);
         return response()->json([
             'status' => 'success',
             'message' => 'Commercial cleaning service created successfully.',
