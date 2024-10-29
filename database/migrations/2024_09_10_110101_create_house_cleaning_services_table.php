@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->integer('number_of_bathroom');
             $table->integer('number_of_story');
             $table->enum('frequency', ['Weekly','Fortnightly', 'Monthly']);
+            $table->string('service_name');
             $table->date('service_date');
             $table->time('service_time');
             $table->integer('price');

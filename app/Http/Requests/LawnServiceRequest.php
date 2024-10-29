@@ -26,6 +26,7 @@ class LawnServiceRequest extends FormRequest
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:15',
             'location' => 'required|string|max:255',
+            'service_name' => 'required|string|max:255',
             'service_date' => 'required|date',
             'service_time' => 'required|date_format:H:i',
             'message_box' => 'nullable|string',

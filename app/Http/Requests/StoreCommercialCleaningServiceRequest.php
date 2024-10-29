@@ -26,6 +26,7 @@ class StoreCommercialCleaningServiceRequest extends FormRequest
             'phone' => 'required|string|max:20',
             'location' => 'required|string|max:255',
             'email' => 'required|email|max:255',
+            'service_name' => 'required|string|max:255',
             'service_date' => 'nullable|date',
             'service_time' => 'nullable|date_format:H:i',
             'type_of_commercial_space' => 'required|in:Office,Retail Store,Warehouse,Restaurant,Other',

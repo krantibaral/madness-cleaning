@@ -24,6 +24,7 @@ return new class extends Migration {
             $table->integer('number_of_walls_cleaned');
             $table->string('carpet_steam_cleaning_area');
             $table->enum('carpet_steam_cleaning_unit', ['sqft', 'sqm']);
+            $table->string('service_name');
             $table->date('service_date');
             $table->time('service_time');
             $table->integer('price');

@@ -20,6 +20,7 @@ class CarpetCleaningServiceResource extends JsonResource
             'phone' => $this->phone,
             'email' => $this->email,
             'location' => $this->location,
+            'service_name' => $this->service_name,
             'service_date' => $this->service_date,
             'service_time' => $this->service_time,
             'carpet_steam_cleaning_area' => $this->carpet_steam_cleaning_area,

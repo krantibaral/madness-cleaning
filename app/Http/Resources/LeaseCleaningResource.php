@@ -23,6 +23,7 @@ class LeaseCleaningResource extends JsonResource
             'number_of_bedrooms' => $this->number_of_bedrooms,
             'number_of_bathrooms' => $this->number_of_bathrooms,
             'message' => $this->message,
+            'service_name' => $this->service_name,
             'service_date' => $this->service_date,
             'service_time' => $this->service_time,
             'status' => $this->status,

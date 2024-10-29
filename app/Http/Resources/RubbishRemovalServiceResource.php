@@ -20,6 +20,7 @@ class RubbishRemovalServiceResource extends JsonResource
             'phone' => $this->phone,
             'location' => $this->location,
             'email' => $this->email,
+            'service_name' => $this->service_name,
             'service_date' => $this->service_date,
             'service_time' => $this->service_time,
             'price' => $this->price,

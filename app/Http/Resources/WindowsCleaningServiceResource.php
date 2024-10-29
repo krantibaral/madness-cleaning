@@ -17,6 +17,7 @@ class WindowsCleaningServiceResource extends JsonResource
             'number_of_windows' => $this->number_of_windows,
             'number_of_story' => $this->number_of_story,
             'message' => $this->message,
+            'service_name' => $this->service_name,
             'service_date' => $this->service_date,
             'service_time' => $this->service_time, //example, 14:30 would represent 2:30 PM, and 09:00 would represent 9:00 AM.
             'type' => $this->type,

@@ -23,6 +23,7 @@ class LawnServiceResource extends JsonResource
             'price' => $this->price,
             'type_of_lawn_service' => $this->type_of_lawn_service,
             'status' => $this->status,
+            'service_name' => $this->service_name,
             'service_date' => $this->service_date,
             'service_time' => $this->service_time,
             'message_box' => $this->message_box

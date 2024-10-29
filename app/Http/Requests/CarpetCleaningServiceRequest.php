@@ -13,6 +13,7 @@ class CarpetCleaningServiceRequest extends FormRequest
             'phone' => 'required|string|max:20',
             'email' => 'required|email|max:255',
             'location' => 'required|string|max:255',
+            'service_name' => 'required|string|max:255',
             'service_date' => 'required|date',
             'service_time' => 'required|date_format:H:i',
             'carpet_steam_cleaning_area' => 'required|numeric|min:0', 

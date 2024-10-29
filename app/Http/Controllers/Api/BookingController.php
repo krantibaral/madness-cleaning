@@ -26,7 +26,6 @@ class BookingController extends Controller
             return $this->filterNullServices($booking);
         });
 
-
         if ($bookings->isEmpty()) {
             return response()->json([
                 'status' => 'success',
@@ -41,9 +40,6 @@ class BookingController extends Controller
             ], 200);
         }
     }
-
-
-
 
     public function show($id)
     {
@@ -76,10 +72,9 @@ class BookingController extends Controller
         ], 200);
     }
 
-    // Helper function to filter out null services
+    // Helper function to filter out null services and timestamps
     private function filterNullServices($booking)
     {
-
         $bookingArray = $booking->toArray();
 
         // Filter out service keys with null values
@@ -88,6 +83,9 @@ class BookingController extends Controller
                 unset($bookingArray[$key]);
             }
         }
+
+        // Unset created_at, updated_at, and deleted_at fields
+        unset($bookingArray['created_at'], $bookingArray['updated_at'], $bookingArray['deleted_at']);
 
         return (object) $bookingArray; // Convert back to object for consistency
     }

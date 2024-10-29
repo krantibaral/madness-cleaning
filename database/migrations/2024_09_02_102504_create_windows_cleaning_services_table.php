@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->string('location');
             $table->integer('number_of_windows');
             $table->integer('number_of_story');
+            $table->string('service_name');
             $table->date('service_date');
             $table->time('service_time');
             $table->integer('price');

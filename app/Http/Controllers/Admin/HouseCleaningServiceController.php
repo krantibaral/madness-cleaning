@@ -123,13 +123,10 @@ class HouseCleaningServiceController extends BaseController
      */
     public function destroy($id)
     {
-        if (!auth()->user()->can('house_cleaning_services.delete')) {
-            abort(403);
-        }
-        
+
         try {
             $item = HouseCleaningService::findOrFail($id);
-            $item->clearMediaCollection();
+
             $item->delete();
         } catch (\Exception $e) {
             return redirect()->route($this->indexRoute());

@@ -35,6 +35,7 @@ class LeaseCleaningRequest extends FormRequest
             'number_of_walls_cleaned' => 'nullable|integer|min:0',
             'carpet_steam_cleaning_area' => 'required|numeric|min:0', 
             'carpet_steam_cleaning_unit' => 'required|in:sqft,sqm',
+            'service_name' => 'required|string|max:255',
             'service_date' => 'required|date',
             'service_time' => 'required|date_format:H:i',
             'price' => 'required|integer',

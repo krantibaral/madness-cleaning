@@ -14,13 +14,14 @@ class WindowsCleaningServiceRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255', 
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:15',
             'location' => 'required|string|max:255',
             'number_of_windows' => 'required|integer',
             'number_of_story' => 'required|integer',
             'message' => 'nullable|string',
+            'service_name' => 'required|string|max:255',
             'service_date' => 'required|date',
             'service_time' => 'required|date_format:H:i',
             'type' => 'required|in:Inside,Outside',
