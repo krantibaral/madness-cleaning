@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RubbishRemovalServiceRequest;
 use App\Http\Resources\RubbishRemovalServiceResource;
 use App\Models\RubbishRemovalService;
+use App\Models\Booking; // Import the Booking model
 use Illuminate\Http\JsonResponse;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class RubbishRemovalServiceController extends Controller
 {
@@ -27,12 +29,27 @@ class RubbishRemovalServiceController extends Controller
      */
     public function store(RubbishRemovalServiceRequest $request): JsonResponse
     {
-        $service = RubbishRemovalService::create($request->validated());
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Rubbish removal service created successfully.',
-            'data' => new RubbishRemovalServiceResource($service),
-        ], 201);
+        try {
+            $service = RubbishRemovalService::create($request->validated());
+
+            // Create a booking for the newly created rubbish removal service
+            Booking::create([
+                'rubbish_removal_service_id' => $service->id, // Update with the correct foreign key
+                // Include any other required fields for the booking here
+            ]);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Rubbish removal service created successfully.',
+                'data' => new RubbishRemovalServiceResource($service),
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unable to create the rubbish removal service. Please try again.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**
@@ -40,11 +57,18 @@ class RubbishRemovalServiceController extends Controller
      */
     public function show($id): JsonResponse
     {
-        $service = RubbishRemovalService::findOrFail($id);
-        return response()->json([
-            'status' => 'success',
-            'data' => new RubbishRemovalServiceResource($service),
-        ]);
+        try {
+            $service = RubbishRemovalService::findOrFail($id);
+            return response()->json([
+                'status' => 'success',
+                'data' => new RubbishRemovalServiceResource($service),
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Resource not found.',
+            ], 404);
+        }
     }
 
     /**
@@ -52,13 +76,26 @@ class RubbishRemovalServiceController extends Controller
      */
     public function update(RubbishRemovalServiceRequest $request, $id): JsonResponse
     {
-        $service = RubbishRemovalService::findOrFail($id);
-        $service->update($request->validated());
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Rubbish removal service updated successfully.',
-            'data' => new RubbishRemovalServiceResource($service),
-        ]);
+        try {
+            $service = RubbishRemovalService::findOrFail($id);
+            $service->update($request->validated());
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Rubbish removal service updated successfully.',
+                'data' => new RubbishRemovalServiceResource($service),
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Resource not found.',
+            ], 404);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unable to update the rubbish removal service. Please try again.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**
@@ -66,11 +103,24 @@ class RubbishRemovalServiceController extends Controller
      */
     public function destroy($id): JsonResponse
     {
-        $service = RubbishRemovalService::findOrFail($id);
-        $service->delete();
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Rubbish removal service deleted successfully.',
-        ], 204);
+        try {
+            $service = RubbishRemovalService::findOrFail($id);
+            $service->delete();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Rubbish removal service deleted successfully.',
+            ], 204);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Resource not found.',
+            ], 404);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unable to delete the rubbish removal service. Please try again.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 }

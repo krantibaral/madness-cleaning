@@ -15,10 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
 
         
-        $this->call(LeaseCleaningSeeder::class);
-        $this->call(HouseCleaningServiceSeeder::class);
-        $this->call(WindowsCleaningServiceSeeder::class);
-        $this->call(CarpetCleaningServiceSeeder::class);
+    
         $this->call(ServiceSeeder::class); 
     }
 }

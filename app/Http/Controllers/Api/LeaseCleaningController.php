@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LeaseCleaningRequest;
 use App\Http\Resources\LeaseCleaningResource;
 use App\Models\LeaseCleaning;
+use App\Models\Booking; // Import the Booking model
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -31,6 +32,13 @@ class LeaseCleaningController extends Controller
     {
         try {
             $leaseCleaning = LeaseCleaning::create($request->validated());
+
+            // Create a booking for the newly created lease cleaning service
+            Booking::create([
+                'lease_cleaning_service_id' => $leaseCleaning->id, // Update with the correct foreign key
+                // Include any other required fields for the booking here
+            ]);
+
             return response()->json([
                 'status' => 'success',
                 'data' => new LeaseCleaningResource($leaseCleaning),

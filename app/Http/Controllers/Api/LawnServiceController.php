@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LawnServiceRequest;
 use App\Http\Resources\LawnServiceResource;
 use App\Models\LawnService;
+use App\Models\Booking; // Import the Booking model
 use Illuminate\Http\JsonResponse;
 
 class LawnServiceController extends Controller
@@ -27,7 +28,15 @@ class LawnServiceController extends Controller
      */
     public function store(LawnServiceRequest $request): JsonResponse
     {
+        // Create the lawn service
         $service = LawnService::create($request->validated());
+
+        // Create a booking for the newly created service
+        Booking::create([
+            'lawn_service_id' => $service->id, // Update with the correct foreign key
+            // Include any other required fields for the booking here
+        ]);
+
         return response()->json([
             'status' => 'success',
             'message' => 'Lawn service created successfully.',
