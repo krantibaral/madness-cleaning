@@ -64,7 +64,10 @@ class HouseCleaningServiceController extends BaseController
             'name' => 'required',
         ]);
 
+
         $data = $request->all();
+        $data['service_name'] = 'House Cleaning Service'; // Set the service_name explicitly
+
         $houseCleaningService = new HouseCleaningService($data);
         $houseCleaningService->save();
 
