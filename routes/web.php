@@ -8,7 +8,7 @@ use App\Http\Controllers\Admin\WindowsCleaningServiceController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('login');
+    return view('welcome');
 });
 
 Auth::routes();
