@@ -50,7 +50,6 @@ class AppointmentBookingRequest extends FormRequest
             'pest_control' => 'boolean',
             'removalists' => 'boolean',
             'cctv_installer' => 'boolean',
-
             'message_box' => 'nullable|string',
         ];
     }
