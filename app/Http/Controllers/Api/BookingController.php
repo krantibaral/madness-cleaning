@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; // Make sure to import Auth
 
 class BookingController extends Controller
 {
     public function index()
     {
+        // Retrieve only the bookings of the authenticated user
         $bookings = Booking::with([
             'windowCleaningService',
             'houseCleaningService',
@@ -19,7 +21,8 @@ class BookingController extends Controller
             'builderCleaningService',
             'lawnService',
             'rubbishRemovalService'
-        ])->get();
+        ])->where('user_id', Auth::id()) // Filter by authenticated user ID
+        ->get();
 
         // Filter out null services
         $bookings = $bookings->map(function ($booking) {
@@ -43,7 +46,7 @@ class BookingController extends Controller
 
     public function show($id)
     {
-        // Retrieve the booking by its ID
+        // Retrieve the booking by its ID for the authenticated user
         $booking = Booking::with([
             'windowCleaningService',
             'houseCleaningService',
@@ -53,7 +56,8 @@ class BookingController extends Controller
             'builderCleaningService',
             'lawnService',
             'rubbishRemovalService'
-        ])->find($id);
+        ])->where('user_id', Auth::id()) // Filter by authenticated user ID
+        ->find($id);
 
         if (!$booking) {
             return response()->json([

@@ -36,6 +36,7 @@ class BuilderCleaningServiceController extends Controller
 
 
         Booking::create([
+            'user_id' => auth()->id(),
             'builder_cleaning_service_id' => $service->id,
 
         ]);

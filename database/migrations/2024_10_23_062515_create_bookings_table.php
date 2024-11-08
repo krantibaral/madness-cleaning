@@ -12,7 +12,11 @@ return new class extends Migration {
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-
+            
+            // Foreign key for user
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            
             // Foreign keys for different service types
             $table->unsignedBigInteger('window_cleaning_service_id')->nullable();
             $table->foreign('window_cleaning_service_id')->references('id')->on('windows_cleaning_services')->onDelete('cascade');
@@ -38,11 +42,9 @@ return new class extends Migration {
             $table->unsignedBigInteger('rubbish_removal_service_id')->nullable();
             $table->foreign('rubbish_removal_service_id')->references('id')->on('rubbish_removal_services')->onDelete('cascade');
 
-
             $table->timestamps();
             $table->softDeletes();
         });
-
     }
 
     /**

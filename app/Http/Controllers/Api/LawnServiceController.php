@@ -33,8 +33,9 @@ class LawnServiceController extends Controller
 
         // Create a booking for the newly created service
         Booking::create([
-            'lawn_service_id' => $service->id, // Update with the correct foreign key
-            // Include any other required fields for the booking here
+            'user_id' => auth()->id(),
+            'lawn_service_id' => $service->id, 
+      
         ]);
 
         return response()->json([

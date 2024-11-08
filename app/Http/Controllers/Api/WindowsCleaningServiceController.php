@@ -30,11 +30,12 @@ class WindowsCleaningServiceController extends Controller
      */
     public function store(WindowsCleaningServiceRequest $request): JsonResponse
     {
-        // Create a new WindowsCleaningService with validated data
+    
         $service = WindowsCleaningService::create($request->validated());
 
-        // Create a booking associated with this WindowsCleaningService
+   
         Booking::create([
+            'user_id' => auth()->id(),
             'window_cleaning_service_id' => $service->id,
             'status' => $request->status ?? 'Pending',
         ]);

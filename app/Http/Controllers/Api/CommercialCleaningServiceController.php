@@ -34,6 +34,7 @@ class CommercialCleaningServiceController extends Controller
         $service = CommercialCleaningService::create($request->validated());
 
         Booking::create([
+            'user_id' => auth()->id(),
             'commercial_cleaning_service_id' => $service->id,
 
         ]);

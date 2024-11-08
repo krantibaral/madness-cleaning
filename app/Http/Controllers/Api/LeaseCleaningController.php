@@ -33,10 +33,11 @@ class LeaseCleaningController extends Controller
         try {
             $leaseCleaning = LeaseCleaning::create($request->validated());
 
-            // Create a booking for the newly created lease cleaning service
+       
             Booking::create([
-                'lease_cleaning_service_id' => $leaseCleaning->id, // Update with the correct foreign key
-                // Include any other required fields for the booking here
+                'user_id' => auth()->id(),
+                'lease_cleaning_service_id' => $leaseCleaning->id, 
+         
             ]);
 
             return response()->json([

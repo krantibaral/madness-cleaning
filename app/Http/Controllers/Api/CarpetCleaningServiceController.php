@@ -30,6 +30,7 @@ class CarpetCleaningServiceController extends Controller
     {
         $service = CarpetCleaningService::create($request->validated());
         Booking::create([
+            'user_id' => auth()->id(),
             'carpet_cleaning_service_id' => $service->id,
 
         ]);

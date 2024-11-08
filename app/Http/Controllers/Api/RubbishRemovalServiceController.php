@@ -32,10 +32,11 @@ class RubbishRemovalServiceController extends Controller
         try {
             $service = RubbishRemovalService::create($request->validated());
 
-            // Create a booking for the newly created rubbish removal service
+         
             Booking::create([
-                'rubbish_removal_service_id' => $service->id, // Update with the correct foreign key
-                // Include any other required fields for the booking here
+                'user_id' => auth()->id(),
+                'rubbish_removal_service_id' => $service->id, 
+         
             ]);
 
             return response()->json([

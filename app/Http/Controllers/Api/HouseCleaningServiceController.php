@@ -33,8 +33,9 @@ class HouseCleaningServiceController extends Controller
 
         // Create a booking for the newly created service
         Booking::create([
-            'house_cleaning_service_id' => $service->id, // Update with the correct foreign key
-            // Add any other required fields for the booking here
+            'user_id' => auth()->id(),
+            'house_cleaning_service_id' => $service->id, 
+         
         ]);
 
         return response()->json([
