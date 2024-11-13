@@ -11,7 +11,7 @@ class BookingController extends Controller
 {
     public function index()
     {
-        // Retrieve only the bookings of the authenticated user
+
         $bookings = Booking::with([
             'windowCleaningService',
             'houseCleaningService',
@@ -21,8 +21,9 @@ class BookingController extends Controller
             'builderCleaningService',
             'lawnService',
             'rubbishRemovalService'
-        ])->where('user_id', Auth::id()) // Filter by authenticated user ID
-        ->get();
+        ])->where('user_id', Auth::id())
+
+            ->get();
 
         // Filter out null services
         $bookings = $bookings->map(function ($booking) {
@@ -57,7 +58,7 @@ class BookingController extends Controller
             'lawnService',
             'rubbishRemovalService'
         ])->where('user_id', Auth::id()) // Filter by authenticated user ID
-        ->find($id);
+            ->find($id);
 
         if (!$booking) {
             return response()->json([
@@ -75,22 +76,76 @@ class BookingController extends Controller
             'message' => 'Booking retrieved successfully.'
         ], 200);
     }
+    public function destroy($id)
+    {
 
-    // Helper function to filter out null services and timestamps
+        $booking = Booking::where('user_id', Auth::id())->find($id);
+
+
+        if (!$booking) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Booking not found.'
+            ], 404);
+        }
+
+
+        if ($booking->window_cleaning_service_id) {
+            \App\Models\WindowsCleaningService::where('id', $booking->window_cleaning_service_id)->forceDelete();
+        }
+
+        if ($booking->house_cleaning_service_id) {
+            \App\Models\HouseCleaningService::where('id', $booking->house_cleaning_service_id)->forceDelete();
+        }
+
+        if ($booking->lease_cleaning_service_id) {
+            \App\Models\LeaseCleaning::where('id', $booking->lease_cleaning_service_id)->forceDelete();
+        }
+
+        if ($booking->carpet_cleaning_service_id) {
+            \App\Models\CarpetCleaningService::where('id', $booking->carpet_cleaning_service_id)->forceDelete();
+        }
+
+        if ($booking->commercial_cleaning_service_id) {
+            \App\Models\CommercialCleaningService::where('id', $booking->commercial_cleaning_service_id)->forceDelete();
+        }
+
+        if ($booking->builder_cleaning_service_id) {
+            \App\Models\BuilderCleaningService::where('id', $booking->builder_cleaning_service_id)->forceDelete();
+        }
+
+        if ($booking->lawn_service_id) {
+            \App\Models\LawnService::where('id', $booking->lawn_service_id)->forceDelete();
+        }
+
+        if ($booking->rubbish_removal_service_id) {
+            \App\Models\RubbishRemovalService::where('id', $booking->rubbish_removal_service_id)->forceDelete();
+        }
+
+        // Delete the booking itself
+        $booking->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Booking and its related services deleted successfully.'
+        ], 200);
+    }
+
+
+
+
     private function filterNullServices($booking)
     {
         $bookingArray = $booking->toArray();
 
-        // Filter out service keys with null values
         foreach ($bookingArray as $key => $value) {
             if (strpos($key, '_service') !== false && is_null($value)) {
                 unset($bookingArray[$key]);
             }
         }
 
-        // Unset created_at, updated_at, and deleted_at fields
         unset($bookingArray['created_at'], $bookingArray['updated_at'], $bookingArray['deleted_at']);
 
-        return (object) $bookingArray; // Convert back to object for consistency
+        return (object) $bookingArray;
     }
 }

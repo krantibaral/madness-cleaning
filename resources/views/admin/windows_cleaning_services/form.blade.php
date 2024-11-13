@@ -82,8 +82,7 @@
     </div>
     <div class="col-md-6 mt-4">
         <label for="price"> Price *</label>
-        <input  required class="form-control" name="price"
-            value="{{ old('price', $item->price ?? '') }}">
+        <input required class="form-control" name="price" value="{{ old('price', $item->price ?? '') }}">
     </div>
     <div class="col-md-12 mt-4">
         <label for="message"> Message </label>

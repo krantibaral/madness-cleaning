@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/user', [AuthController::class, 'getAuthUser']);
     Route::post('/user', [AuthController::class, 'updateUser']);
     Route::get('bookings', [BookingController::class, 'index']);
+    Route::delete('/bookings/{id}', [BookingController::class, 'destroy']);
 
     // Service-related routes 
     Route::get('services', [ServiceController::class, 'index']);
