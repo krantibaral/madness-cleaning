@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LeaseCleaningRequest;
 use App\Http\Resources\LeaseCleaningResource;
 use App\Models\LeaseCleaning;
-use App\Models\Booking; // Import the Booking model
+use App\Models\Booking;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
