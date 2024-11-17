@@ -12,7 +12,8 @@ use App\Http\Controllers\Api\{
     WindowsCleaningServiceController,
     CommercialCleaningServiceController,
     BuilderCleaningServiceController,
-    BookingController
+    BookingController,
+    ChatbotController
 };
 use Illuminate\Support\Facades\Route;
 
@@ -39,4 +40,5 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource('lawn-services', LawnServiceController::class);
     Route::apiResource('rubbish-removal-services', RubbishRemovalServiceController::class);
     Route::apiResource('appointment-bookings', AppointmentBookingController::class);
+    Route::apiResource('chatbots', ChatbotController::class);
 });
