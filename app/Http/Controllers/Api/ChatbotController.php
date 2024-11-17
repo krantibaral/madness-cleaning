@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ChatbotRequest;
-use App\Http\Resources\ChatbotResource;
+use App\Http\Requests\ChatBotRequest;
+use App\Http\Resources\ChatBotResource;
 use App\Models\ChatBot;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -17,16 +17,16 @@ class ChatbotController extends Controller
     public function index()
     {
         $chatbots = ChatBot::all();
-        return ChatbotResource::collection($chatbots);
+        return ChatBotResource::collection($chatbots);
     }
 
     /**
      * Store a newly created chatbot entry.
      */
-    public function store(ChatbotRequest $request)
+    public function store(ChatBotRequest $request)
     {
         $chatbot = ChatBot::create($request->validated());
-        return new ChatbotResource($chatbot);
+        return new ChatBotResource($chatbot);
     }
 
     /**
@@ -34,16 +34,16 @@ class ChatbotController extends Controller
      */
     public function show(ChatBot $chatbot)
     {
-        return new ChatbotResource($chatbot);
+        return new ChatBotResource($chatbot);
     }
 
     /**
      * Update the specified chatbot entry.
      */
-    public function update(ChatbotRequest $request, ChatBot $chatbot)
+    public function update(ChatBotRequest $request, ChatBot $chatbot)
     {
         $chatbot->update($request->validated());
-        return new ChatbotResource($chatbot);
+        return new ChatBotResource($chatbot);
     }
 
     /**
