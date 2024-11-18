@@ -10,6 +10,7 @@ use App\Models\Booking;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Notifications\BookingNotification;
 
 class LeaseCleaningController extends Controller
 {
@@ -33,12 +34,18 @@ class LeaseCleaningController extends Controller
         try {
             $leaseCleaning = LeaseCleaning::create($request->validated());
 
-       
-            Booking::create([
+
+            $booking = Booking::create([
                 'user_id' => auth()->id(),
-                'lease_cleaning_service_id' => $leaseCleaning->id, 
-         
+                'lease_cleaning_service_id' => $leaseCleaning->id,
+
             ]);
+            if ($user = auth()->user()) {
+                $user->notify(new BookingNotification($booking));
+            } else {
+
+                return response()->json(['error' => 'User not authenticated'], 401);
+            }
 
             return response()->json([
                 'status' => 'success',

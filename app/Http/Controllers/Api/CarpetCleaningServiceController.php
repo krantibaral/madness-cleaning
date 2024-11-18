@@ -8,6 +8,7 @@ use App\Http\Resources\CarpetCleaningServiceResource;
 use App\Models\CarpetCleaningService;
 use Illuminate\Http\JsonResponse;
 use App\Models\Booking;
+use App\Notifications\BookingNotification;
 
 class CarpetCleaningServiceController extends Controller
 {
@@ -29,11 +30,17 @@ class CarpetCleaningServiceController extends Controller
     public function store(CarpetCleaningServiceRequest $request): JsonResponse
     {
         $service = CarpetCleaningService::create($request->validated());
-        Booking::create([
+        $booking = Booking::create([
             'user_id' => auth()->id(),
             'carpet_cleaning_service_id' => $service->id,
 
         ]);
+        if ($user = auth()->user()) {
+            $user->notify(new BookingNotification($booking));
+        } else {
+
+            return response()->json(['error' => 'User not authenticated'], 401);
+        }
         return response()->json([
             'status' => 'success',
             'message' => 'Carpet cleaning service created successfully.',

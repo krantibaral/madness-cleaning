@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LawnServiceRequest;
 use App\Http\Resources\LawnServiceResource;
 use App\Models\LawnService;
-use App\Models\Booking; // Import the Booking model
+use App\Models\Booking;
+use App\Notifications\BookingNotification;
 use Illuminate\Http\JsonResponse;
 
 class LawnServiceController extends Controller
@@ -31,12 +32,19 @@ class LawnServiceController extends Controller
         // Create the lawn service
         $service = LawnService::create($request->validated());
 
-        // Create a booking for the newly created service
-        Booking::create([
+
+        $booking = Booking::create([
             'user_id' => auth()->id(),
-            'lawn_service_id' => $service->id, 
-      
+            'lawn_service_id' => $service->id,
+
         ]);
+
+        if ($user = auth()->user()) {
+            $user->notify(new BookingNotification($booking));
+        } else {
+
+            return response()->json(['error' => 'User not authenticated'], 401);
+        }
 
         return response()->json([
             'status' => 'success',

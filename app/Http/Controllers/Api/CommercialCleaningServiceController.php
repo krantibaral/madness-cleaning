@@ -9,6 +9,7 @@ use App\Models\CommercialCleaningService;
 use Illuminate\Http\JsonResponse;
 use App\Models\Booking;
 use Illuminate\Http\Request;
+use App\Notifications\BookingNotification;
 
 class CommercialCleaningServiceController extends Controller
 {
@@ -33,11 +34,17 @@ class CommercialCleaningServiceController extends Controller
     {
         $service = CommercialCleaningService::create($request->validated());
 
-        Booking::create([
+      $booking=  Booking::create([
             'user_id' => auth()->id(),
             'commercial_cleaning_service_id' => $service->id,
 
         ]);
+        if ($user = auth()->user()) {
+            $user->notify(new BookingNotification($booking));
+        } else {
+           
+            return response()->json(['error' => 'User not authenticated'], 401);
+        }
         return response()->json([
             'status' => 'success',
             'message' => 'Commercial cleaning service created successfully.',

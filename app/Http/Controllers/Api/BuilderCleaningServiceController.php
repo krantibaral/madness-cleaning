@@ -9,6 +9,7 @@ use App\Models\BuilderCleaningService;
 use App\Models\Booking;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use App\Notifications\BookingNotification;
 
 class BuilderCleaningServiceController extends Controller
 {
@@ -30,23 +31,29 @@ class BuilderCleaningServiceController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StoreBuilderCleaningServiceRequest $request): JsonResponse
-    {
+{
+    $service = BuilderCleaningService::create($request->validated());
 
-        $service = BuilderCleaningService::create($request->validated());
+    $booking = Booking::create([
+        'user_id' => auth()->id(),
+        'builder_cleaning_service_id' => $service->id,
+    ]);
 
-
-        Booking::create([
-            'user_id' => auth()->id(),
-            'builder_cleaning_service_id' => $service->id,
-
-        ]);
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Builder cleaning service created successfully.',
-            'data' => new BuilderCleaningServiceResource($service),
-        ], 201);
+    // Check if the user is authenticated before sending the notification
+    if ($user = auth()->user()) {
+        $user->notify(new BookingNotification($booking));
+    } else {
+        // Handle the case where the user is not authenticated (optional)
+        return response()->json(['error' => 'User not authenticated'], 401);
     }
+
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Builder cleaning service created successfully.',
+        'data' => new BuilderCleaningServiceResource($service),
+    ], 201);
+}
+
 
 
     /**

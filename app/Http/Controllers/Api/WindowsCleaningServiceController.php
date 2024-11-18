@@ -9,6 +9,7 @@ use App\Http\Requests\WindowsCleaningServiceRequest;
 use App\Models\WindowsCleaningService;
 use App\Models\Booking;
 use App\Http\Resources\WindowsCleaningServiceResource;
+use App\Notifications\BookingNotification;
 
 class WindowsCleaningServiceController extends Controller
 {
@@ -30,15 +31,21 @@ class WindowsCleaningServiceController extends Controller
      */
     public function store(WindowsCleaningServiceRequest $request): JsonResponse
     {
-    
+
         $service = WindowsCleaningService::create($request->validated());
 
-   
-        Booking::create([
+
+        $booking = Booking::create([
             'user_id' => auth()->id(),
             'window_cleaning_service_id' => $service->id,
-            'status' => $request->status ?? 'Pending',
+
         ]);
+        if ($user = auth()->user()) {
+            $user->notify(new BookingNotification($booking));
+        } else {
+
+            return response()->json(['error' => 'User not authenticated'], 401);
+        }
 
         return response()->json([
             'status' => 'success',

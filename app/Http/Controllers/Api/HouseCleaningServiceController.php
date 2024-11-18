@@ -8,6 +8,7 @@ use App\Http\Resources\HouseCleaningServiceResource;
 use App\Models\HouseCleaningService;
 use Illuminate\Http\JsonResponse;
 use App\Models\Booking;
+use App\Notifications\BookingNotification;
 
 class HouseCleaningServiceController extends Controller
 {
@@ -32,12 +33,17 @@ class HouseCleaningServiceController extends Controller
         $service = HouseCleaningService::create($request->validated());
 
         // Create a booking for the newly created service
-        Booking::create([
+        $booking = Booking::create([
             'user_id' => auth()->id(),
-            'house_cleaning_service_id' => $service->id, 
-         
-        ]);
+            'house_cleaning_service_id' => $service->id,
 
+        ]);
+        if ($user = auth()->user()) {
+            $user->notify(new BookingNotification($booking));
+        } else {
+           
+            return response()->json(['error' => 'User not authenticated'], 401);
+        }
         return response()->json([
             'status' => 'success',
             'message' => 'House cleaning service created successfully.',

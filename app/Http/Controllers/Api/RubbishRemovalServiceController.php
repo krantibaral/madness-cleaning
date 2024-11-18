@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RubbishRemovalServiceRequest;
 use App\Http\Resources\RubbishRemovalServiceResource;
 use App\Models\RubbishRemovalService;
-use App\Models\Booking; // Import the Booking model
+use App\Models\Booking;
+use App\Notifications\BookingNotification;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -32,12 +33,18 @@ class RubbishRemovalServiceController extends Controller
         try {
             $service = RubbishRemovalService::create($request->validated());
 
-         
-            Booking::create([
+
+            $booking = Booking::create([
                 'user_id' => auth()->id(),
-                'rubbish_removal_service_id' => $service->id, 
-         
+                'rubbish_removal_service_id' => $service->id,
+
             ]);
+            if ($user = auth()->user()) {
+                $user->notify(new BookingNotification($booking));
+            } else {
+
+                return response()->json(['error' => 'User not authenticated'], 401);
+            }
 
             return response()->json([
                 'status' => 'success',
