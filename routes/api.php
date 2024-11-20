@@ -13,7 +13,8 @@ use App\Http\Controllers\Api\{
     CommercialCleaningServiceController,
     BuilderCleaningServiceController,
     BookingController,
-    ChatbotController
+    ChatbotController,
+    NotificationController
 };
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/user', [AuthController::class, 'updateUser']);
     Route::get('bookings', [BookingController::class, 'index']);
     Route::delete('/bookings/{id}', [BookingController::class, 'destroy']);
+    Route::get('/notifications', [NotificationController::class, 'index']);
+
 
     // Service-related routes 
     Route::get('services', [ServiceController::class, 'index']);

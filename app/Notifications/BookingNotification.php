@@ -48,7 +48,6 @@ class BookingNotification extends Notification
 
         
         return [
-            'booking_id' => $this->booking->id,
             'message' => 'A new booking has been made for ' . $serviceName,
         ];
     }
