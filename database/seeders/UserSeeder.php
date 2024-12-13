@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@mads.com',
             'address' => 'Pokhara',
-            'phone' => '984604921',
+            'phone' => '9846049212',
             'password' => bcrypt('Admin@123')
         ]);
         $user->save();
