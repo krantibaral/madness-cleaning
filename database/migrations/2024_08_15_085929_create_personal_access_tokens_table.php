@@ -21,7 +21,7 @@ return new class extends Migration
             $table->timestamp('expires_at')->nullable();
             $table->timestamps();
 
-            // Add index for tokenable fields with reduced key length
+            // Create index with adjusted column length
             $table->index(['tokenable_type', 'tokenable_id'], 'tokenable_index');
         });
     }
