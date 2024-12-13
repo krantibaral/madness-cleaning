@@ -22,7 +22,7 @@ return new class extends Migration
             $table->timestamps();
 
             // Add index for tokenable fields with reduced key length
-            $table->index(['tokenable_type', 'tokenable_id']);
+            $table->index(['tokenable_type', 'tokenable_id'], 'tokenable_index');
         });
     }
 
